@@ -15,9 +15,17 @@ enum state {
 	SCAN_BLUE,
 } state = SSTV_OFF;
 
-unsigned lastFreq = 0, lastLength = 0, pixel = 0;
-
 void MartinM1Receiver :: receive(unsigned char* outputBuffer) {
 	Dprintf("+%s\n", __func__);
+	FmResponse resp;
+	
+	unsigned row = 0, col = 0;
+
+	while (1) {
+		resp = detector->waitForTone(1200, 25, 1000 * 1);
+		Dprintf("received freq=%u duration=%u\n", resp.frequency,
+			resp.duration);
+	}
+
 	Dprintf("-%s\n", __func__);
 }

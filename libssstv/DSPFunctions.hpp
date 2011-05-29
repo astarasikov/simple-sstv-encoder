@@ -12,7 +12,7 @@ public:
 	Detector(SoundRecorder *_soundInput,
 		unsigned bufferSeconds)
 		:soundInput(_soundInput),
-		bufferSize(10 * bufferSeconds * _soundInput->getFrequency()),
+		bufferSize(3 * bufferSeconds * _soundInput->getFrequency()),
 		pcmBuffer(new unsigned char[bufferSize]) {}
 	virtual ~Detector() {}
 	virtual Response waitForTone(unsigned tone, unsigned bandwidth,
@@ -24,15 +24,17 @@ protected:
 	unsigned char* pcmBuffer;
 };
 
-class ZCDetector : public Detector {
+class FMDetector : public Detector {
 public:
-	ZCDetector(SoundRecorder *_soundInput, unsigned bufferSeconds)
+	FMDetector(SoundRecorder *_soundInput, unsigned bufferSeconds)
 	: Detector(_soundInput, bufferSeconds) {}
-	virtual ~ZCDetector() {}
+	virtual ~FMDetector() {}
 	Response waitForTone(unsigned tone, unsigned bandwidth,
 		unsigned minDuration);
 protected:
 	bool isRunning;
 };
+
+typedef Detector::Response FmResponse;
 
 #endif
