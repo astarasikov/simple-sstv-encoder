@@ -18,22 +18,19 @@ unsigned minDuration) {
 			if (pcmBuffer[i] == 128 || pcmBuffer[i] == pcmBuffer[i - 1])
 				continue;
 
-			double dcur = (pcmBuffer[i] - pcmBuffer[i - 1]) / 128.0;
+			double dfreq = (pcmBuffer[i] - pcmBuffer[i - 1]) / 128.0;
 		
 			//if we have a diff more than 1 in absolute value,
 			//that usually means the frequency has changed
-			if (dcur < -1 || dcur > 1)
+			if (dfreq < -1 || dfreq > 1)
 				continue;
 
-			dcur = freqMult * fabs(asin(dcur));
+			dfreq = freqMult * fabs(asin(dfreq));
 
-			double dfreq = dcur * freqOut;
-			
-			//This is kinda wrong and a proper band-pass filter
+			//This is kinda wrong and a proper band-pass filter should be used
 			if (dfreq < 1050 || dfreq > 2350)
 				continue;
-
-			Dprintf("[%d] Delta=%f, freq=%f\n", i, dcur, dfreq);
+			Dprintf("[%i] frequency=%f\n", i, dfreq);
 			double dlast = dfreq;
 			int frames = 0;
 			while (++i < nframes ) {
