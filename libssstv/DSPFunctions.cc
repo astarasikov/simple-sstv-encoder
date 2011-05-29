@@ -4,9 +4,6 @@
 #include <cstdlib>
 #include <cmath>
 
-static unsigned idxCaptured = 0;
-static unsigned idxProcessed = 0;
-
 Detector::Response FMDetector :: waitForTone(unsigned tone, unsigned bandwidth,
 unsigned minDuration) {
 	struct Response resp;
