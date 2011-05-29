@@ -42,14 +42,19 @@ unsigned minDuration) {
 					++frames;
 				}
 				else {
-					double duration = (++frames * 1.0) / freqOut;
+					unsigned duration = (++frames * 1000 * 1000) / freqOut;
 					Dprintf("%d consequent frames, duration=%f\n",
 						frames, duration);
 					//The continuous period of the same frequency has ended
 					//so we roll one sample back to force the loop to run from
 					//start
+					//
+					//Oh well. let us just return instead and think of
+					//how to make detection and recording asynchronous
 					--i;
-					break;
+					resp.frequency = dfreq;
+					resp.duration = duration;
+					return resp;
 				}
 			}
 		}
