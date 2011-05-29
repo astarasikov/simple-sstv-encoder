@@ -44,7 +44,7 @@ static void sstv_receive(char* fname_in, char* fname_out,
 		puts(_("Please specify one of the supported sound drivers\n"));
 		return;
 	}
-	ZCDetector detector(snd, 1);
+	FMDetector detector(snd, 1);
 	MartinM1Receiver *rcvr = new MartinM1Receiver(&detector);
 	unsigned char *data =
 		new unsigned char[rcvr->info.width * rcvr->info.height * 3];
